@@ -1,0 +1,33 @@
+name: API CI
+# on: [push]
+#Cuando es un monorepo
+on:
+  push:
+    paths:
+      - "./api/**"
+      - ".github/workflows/api-ci.yml"
+
+defaults:
+  run:
+    working-directory: ./api
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      #Clona el repositorio en la máquina
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: "npm"
+          cache-dependendy-path: ./api/package-log.json
+      - name: install dependencies
+        shell: bash
+        #Instala dependencias en un entorno de integración continua ci
+        run: npm ci
+      - name: run unit test
+        shell: bash
+        run: npm run test
