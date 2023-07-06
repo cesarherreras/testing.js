@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 14
           cache: "npm"
-          cache-dependendy-path: ./api/package-lock.json
+          cache-dependency-path: ./api/package-lock.json
       - name: install dependencies
         shell: bash
         #Instala dependencias en un entorno de integración continua ci
